@@ -33,7 +33,8 @@
   body.menu-abierto .panel{transform:none}
   .panel-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
   .panel-top .logo svg{height:24px}
-  .cerrar{background:none;border:0;font-size:30px;cursor:pointer;line-height:1}
+  .panel-top{gap:24px}
+  .cerrar{background:none;border:0;font-size:30px;cursor:pointer;line-height:1;width:44px;height:44px;margin-right:-10px;display:flex;align-items:center;justify-content:center}
   .panel a.item{display:block;padding:14px 0;border-top:1px solid var(--linea);font-size:13px}
   .panel a.item:hover{color:var(--azul)}
 
@@ -69,7 +70,7 @@
   /* Mobile: logo a la izquierda; lupa y hamburguesa a la derecha (patrón Apple) */
   @media(max-width:800px){
     .barra{gap:4px;padding:6px 8px 6px 16px}
-    .logo{order:1;margin-right:auto}
+    .barra .logo{order:1;margin-right:auto}
     .buscar{order:2;margin-left:0}
     .menu-btn{order:3}
     .buscar,.menu-btn{width:44px;height:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0}
