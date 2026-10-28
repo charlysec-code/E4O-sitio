@@ -168,6 +168,41 @@
     .col.centro{border:0;order:-1}
     .nota h1{font-size:36px;line-height:1.12}
   }
+  /* Carrusel de episodios, estilo Apple */
+  .episodios{padding:8px 0 40px;background:var(--blanco)}
+  .ep-pista{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;
+    padding:0 calc((100vw - var(--ep-w)) / 2);scrollbar-width:none;--ep-w:min(980px,86vw)}
+  .ep-pista::-webkit-scrollbar{display:none}
+  .ep{flex:0 0 var(--ep-w);scroll-snap-align:center;position:relative;overflow:hidden;border-radius:4px;
+    aspect-ratio:16/8;background:#0b0b0b;color:var(--blanco);display:flex;flex-direction:column;align-items:center;
+    justify-content:space-between;text-align:center;padding:44px 24px 36px;isolation:isolate}
+  .ep::before{content:"";position:absolute;inset:-20%;z-index:-1;
+    background:conic-gradient(from var(--ang,0deg) at var(--x,62%) var(--y,58%),rgba(255,90,31,.55) 0deg,rgba(255,90,31,0) 60deg,transparent 60deg),
+      repeating-radial-gradient(circle at var(--x,62%) var(--y,58%),transparent 0 9%,rgba(255,255,255,.07) 9% 9.25%)}
+  .ep::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 35%,transparent 55%,rgba(0,0,0,.75))}
+  .ep-arriba .mono{font-size:12px;color:rgba(255,255,255,.75)}
+  .ep-titulo{font-size:clamp(34px,6vw,72px);line-height:1.05;font-weight:800;letter-spacing:-.025em;margin-top:10px;text-wrap:balance}
+  .ep-tema{font-size:19px;font-weight:700;letter-spacing:-.01em}
+  .ep-frase{font-family:"Source Serif 4",serif;font-size:18px;line-height:1.4;color:rgba(255,255,255,.9);margin:4px auto 18px;max-width:30ch}
+  .ep-boton{display:inline-block;background:var(--blanco);color:var(--negro);border-radius:999px;padding:12px 26px;font-size:15px;font-weight:700}
+  .ep-boton:hover{background:#E8E8E8}
+  .ep-control{display:flex;align-items:center;justify-content:center;gap:16px;max-width:var(--ep-w,980px);margin:20px auto 0;position:relative;padding:0 16px}
+  .ep-puntos{display:flex;gap:10px;align-items:center;background:rgba(0,0,0,.06);border-radius:999px;padding:12px 16px}
+  .ep-punto{width:8px;height:8px;border-radius:999px;border:0;padding:0;background:rgba(0,0,0,.35);cursor:pointer;position:relative;overflow:hidden;transition:width .4s cubic-bezier(.4,0,.2,1)}
+  .ep-punto[aria-current="true"]{width:48px;background:rgba(0,0,0,.2)}
+  .ep-punto[aria-current="true"]::after{content:"";position:absolute;inset:0;background:var(--negro);border-radius:inherit;transform-origin:left;
+    animation:ep-avance var(--ep-t,6s) linear forwards}
+  .episodios.pausado .ep-punto[aria-current="true"]::after{animation-play-state:paused}
+  .episodios.quieto .ep-punto[aria-current="true"]::after{animation:none;transform:none}
+  @keyframes ep-avance{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  .ep-play{width:44px;height:44px;border-radius:50%;border:0;background:rgba(0,0,0,.06);cursor:pointer;display:flex;align-items:center;justify-content:center;
+    position:absolute;right:16px}
+  .ep-play:hover{background:rgba(0,0,0,.1)}
+  @media(max-width:800px){
+    .ep-pista{--ep-w:82vw;gap:12px}
+    .ep{aspect-ratio:3/4.6;padding:36px 20px 28px}
+    .ep-frase{font-size:17px}
+  }
   @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -265,6 +300,35 @@
   </div>
   <p class="sin-resultados" role="status" aria-live="polite">No hay notas que coincidan con tu búsqueda.</p>
 </main>
+
+<section class="episodios" aria-roledescription="carrusel" aria-label="Episodios de E4O">
+  <div class="ep-pista" tabindex="-1">
+    <article class="ep" aria-roledescription="diapositiva" aria-label="1 de 5" style="--ang:0deg;--x:64%;--y:58%">
+      <div class="ep-arriba"><div class="mono">Ep. 01</div><div class="ep-titulo">Directorio</div></div>
+      <div><div class="ep-tema">CISO y directorio</div><p class="ep-frase">La seguridad también se decide en la mesa del directorio.</p><a class="ep-boton" href="#">Ver episodio</a></div>
+    </article>
+    <article class="ep" aria-roledescription="diapositiva" aria-label="2 de 5" style="--ang:40deg;--x:36%;--y:52%">
+      <div class="ep-arriba"><div class="mono">Ep. 02</div><div class="ep-titulo">El costo real</div></div>
+      <div><div class="ep-tema">Riesgo</div><p class="ep-frase">Cuánto cuesta un incidente, explicado en números.</p><a class="ep-boton" href="#">Ver episodio</a></div>
+    </article>
+    <article class="ep" aria-roledescription="diapositiva" aria-label="3 de 5" style="--ang:300deg;--x:70%;--y:40%">
+      <div class="ep-arriba"><div class="mono">Ep. 03</div><div class="ep-titulo">24 horas</div></div>
+      <div><div class="ep-tema">Amenazas</div><p class="ep-frase">Qué hacer en el primer día de un ataque de ransomware.</p><a class="ep-boton" href="#">Ver episodio</a></div>
+    </article>
+    <article class="ep" aria-roledescription="diapositiva" aria-label="4 de 5" style="--ang:120deg;--x:50%;--y:66%">
+      <div class="ep-arriba"><div class="mono">Ep. 04</div><div class="ep-titulo">Cinco preguntas</div></div>
+      <div><div class="ep-tema">Estrategia</div><p class="ep-frase">Lo que todo directorio debería preguntarle a su CISO.</p><a class="ep-boton" href="#">Ver episodio</a></div>
+    </article>
+    <article class="ep" aria-roledescription="diapositiva" aria-label="5 de 5" style="--ang:210deg;--x:30%;--y:44%">
+      <div class="ep-arriba"><div class="mono">Ep. 05</div><div class="ep-titulo">Sin letra chica</div></div>
+      <div><div class="ep-tema">Regulación</div><p class="ep-frase">Protección de datos personales para quienes deciden.</p><a class="ep-boton" href="#">Ver episodio</a></div>
+    </article>
+  </div>
+  <div class="ep-control">
+    <div class="ep-puntos" role="group" aria-label="Elegir episodio"></div>
+    <button class="ep-play" aria-label="Pausar"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" rx="1" fill="currentColor"/><rect x="8.5" y="1" width="3.5" height="12" rx="1" fill="currentColor"/></svg></button>
+  </div>
+</section>
 
 <footer>
   <div class="in mono">
@@ -378,6 +442,51 @@
     if(b.classList.contains('menu-abierto'))menu(false);
     else if(b.classList.contains('buscando'))busqueda(false);
   });
+  // Carrusel de episodios: avanza solo, se pausa al interactuar y respeta "reducir movimiento"
+  (() => {
+    const sec = $('.episodios'); if (!sec) return;
+    const pista = sec.querySelector('.ep-pista'), eps = [...sec.querySelectorAll('.ep')];
+    const puntos = sec.querySelector('.ep-puntos'), play = sec.querySelector('.ep-play');
+    const quieto = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const ICON_PAUSA = play.innerHTML, ICON_PLAY = '<svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3 1.5v11l9.5-5.5z" fill="currentColor"/></svg>';
+    let actual = 0, pausado = quieto;
+    const botones = eps.map((ep, i) => {
+      const b = document.createElement('button');
+      b.className = 'ep-punto'; b.setAttribute('aria-label', `Ver episodio ${i + 1}`);
+      b.onclick = () => { ir(i); };
+      puntos.appendChild(b); return b;
+    });
+    function marcar(i) {
+      actual = i;
+      botones.forEach((b, j) => { b.removeAttribute('aria-current'); if (j === i) { void b.offsetWidth; b.setAttribute('aria-current', 'true'); } });
+    }
+    function ir(i) {
+      const ep = eps.at(i);
+      pista.scrollTo({ left: ep.offsetLeft - (pista.clientWidth - ep.clientWidth) / 2 });
+      marcar(i);
+    }
+    function pausar(si) {
+      pausado = si; sec.classList.toggle('pausado', si);
+      play.innerHTML = si ? ICON_PLAY : ICON_PAUSA; play.setAttribute('aria-label', si ? 'Reproducir' : 'Pausar');
+    }
+    // Al terminar la barra del punto activo, pasa al siguiente (vuelve al primero al final)
+    puntos.addEventListener('animationend', () => { if (!pausado) ir((actual + 1) % eps.length); });
+    // Si la persona desliza a mano, el punto sigue a la tarjeta del centro
+    let t; pista.addEventListener('scroll', () => {
+      clearTimeout(t); t = setTimeout(() => {
+        const centro = pista.scrollLeft + pista.clientWidth / 2;
+        let mejor = 0, dist = Infinity;
+        eps.forEach((ep, i) => { const d = Math.abs(ep.offsetLeft + ep.clientWidth / 2 - centro); if (d < dist) { dist = d; mejor = i; } });
+        if (mejor !== actual) marcar(mejor);
+      }, 90);
+    }, { passive: true });
+    pista.addEventListener('pointerdown', () => pausar(true));
+    sec.addEventListener('focusin', () => pausar(true));
+    play.onclick = () => pausar(!pausado);
+    if (quieto) sec.classList.add('quieto');
+    pausar(pausado);
+    requestAnimationFrame(() => ir(0));
+  })();
 </script>
 </body>
 </html>
