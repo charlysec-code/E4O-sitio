@@ -51,7 +51,12 @@
   .logo svg{display:block;height:var(--h);width:auto;aspect-ratio:446.89/160}
 
   /* Barra superior: fija y blanca, con una línea fina abajo */
-  header{position:sticky;top:0;z-index:20;background:var(--blanco);border-bottom:1px solid var(--linea);padding-top:var(--safe-t)}
+  header{position:sticky;top:0;z-index:20;background:var(--blanco);border-bottom:1px solid var(--linea);padding-top:var(--safe-t);transition:background .3s}
+  /* Barra semitransparente con desenfoque, estilo Apple */
+  @supports ((-webkit-backdrop-filter:blur(1px)) or (backdrop-filter:blur(1px))){
+    header{background:rgba(255,255,255,.72);-webkit-backdrop-filter:saturate(180%) blur(20px);backdrop-filter:saturate(180%) blur(20px);border-bottom-color:rgba(0,0,0,.08)}
+    body.mega-abierto header,body.buscando header{background:var(--blanco)}
+  }
   .barra{display:flex;align-items:center;gap:24px;max-width:1400px;margin:0 auto;
     padding:0 max(24px,var(--safe-r)) 0 max(24px,var(--safe-l))}
   .icono{background:none;border:0;cursor:pointer;flex-shrink:0;width:44px;height:44px;
