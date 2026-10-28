@@ -122,6 +122,30 @@
   footer .in{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:16px 32px;flex-wrap:wrap;font-size:12px}
   footer .logo{--h:22px;color:var(--blanco)}
 
+  /* Megamenú de computadora, estilo Apple */
+  .secciones a{padding:8px 0;transition:color .2s}
+  .secciones a[aria-expanded="true"]{color:var(--azul)}
+  .mega{position:absolute;left:0;right:0;top:100%;background:var(--blanco);border-bottom:1px solid var(--linea);
+    display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s cubic-bezier(.4,0,.2,1);visibility:hidden}
+  .mega>.mega-in{overflow:hidden}
+  body.mega-abierto .mega{grid-template-rows:1fr;visibility:visible}
+  .mega-cols{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:minmax(260px,2fr) 1fr 1fr 1.5fr;gap:48px;
+    padding:36px max(24px,var(--safe-r)) 56px max(24px,var(--safe-l));opacity:0;transform:translateY(-6px);transition:opacity .25s,transform .25s}
+  body.mega-abierto .mega-cols{opacity:1;transform:none;transition-delay:.08s}
+  .mega h2{font-size:12px;color:var(--gris);font-weight:500;margin-bottom:16px}
+  .mega ul{list-style:none}
+  .mega .grandes a{display:inline-block;font-size:26px;line-height:1.25;font-weight:700;letter-spacing:-.01em;padding:4px 0}
+  .mega .chicos a{display:inline-block;font-size:14px;line-height:1.4;font-weight:700;padding:6px 0}
+  .mega a:hover{color:var(--azul)}
+  .velo-mega{position:fixed;inset:0;z-index:19;background:rgba(0,0,0,.12);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    opacity:0;pointer-events:none;transition:opacity .3s}
+  body.mega-abierto .velo-mega{opacity:1;pointer-events:auto}
+  @media(min-width:1001px){
+    .menu-btn{display:none}
+    .secciones{gap:32px}
+  }
+  @media(max-width:1000px){.mega,.velo-mega{display:none}}
+
   @media(max-width:1000px){.secciones{display:none}}
   /* Celular: logo a la izquierda; lupa y hamburguesa a la derecha */
   @media(max-width:800px){
@@ -150,13 +174,19 @@
     <button class="icono menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
     <a class="logo" href="#" aria-label="E4O, inicio"><svg role="img" aria-label="E4O"><use href="#logo-e4o"/></svg></a>
     <nav class="secciones mono" aria-label="Secciones">
-      <a href="#">Riesgo</a><a href="#">Estrategia</a><a href="#">El rol del CISO</a>
-      <a href="#">Ransomware</a><a href="#">Regulación</a><a href="#">Videos</a><a href="#">Análisis</a>
+      <a href="#" data-mega="riesgo" aria-expanded="false" aria-controls="mega">Riesgo</a>
+      <a href="#" data-mega="estrategia" aria-expanded="false" aria-controls="mega">Estrategia</a>
+      <a href="#" data-mega="ciso" aria-expanded="false" aria-controls="mega">El rol del CISO</a>
+      <a href="#" data-mega="ransomware" aria-expanded="false" aria-controls="mega">Ransomware</a>
+      <a href="#" data-mega="regulacion" aria-expanded="false" aria-controls="mega">Regulación</a>
+      <a href="#" data-mega="videos" aria-expanded="false" aria-controls="mega">Videos</a>
+      <a href="#" data-mega="analisis" aria-expanded="false" aria-controls="mega">Análisis</a>
     </nav>
     <button class="icono buscar" aria-label="Buscar" aria-expanded="false" aria-controls="busqueda">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
     </button>
   </div>
+  <div class="mega" id="mega" aria-hidden="true" inert><div class="mega-in"><div class="mega-cols"></div></div></div>
   <div class="busqueda" id="busqueda">
     <div class="in" role="search">
       <label class="sr" for="q">Buscar notas</label>
@@ -167,6 +197,7 @@
 </header>
 
 <div class="velo"></div>
+<div class="velo-mega"></div>
 <aside class="panel mono" id="menu" aria-label="Menú" aria-hidden="true">
   <div class="panel-top">
     <a class="logo" href="#" aria-label="E4O, inicio"><svg role="img" aria-label="E4O"><use href="#logo-e4o"/></svg></a>
@@ -272,8 +303,65 @@
   $('.cerrar-busqueda').onclick=()=>busqueda(false);
   q.addEventListener('input',filtrar);
 
+  // Megamenú de computadora: se abre al pasar el mouse o con el teclado
+  const MEGA={
+    riesgo:{t:'Riesgo',l:['Riesgo explicado para dueños','Cuánto cuesta un incidente','Riesgo de terceros','Seguros de ciberriesgo']},
+    estrategia:{t:'Estrategia',l:['Cuánto invertir en seguridad','Prioridades del primer año','Seguridad que acompaña al negocio','Indicadores para el directorio']},
+    ciso:{t:'El rol del CISO',l:['CISO: ¿técnico, gerente o traductor?','Preguntas para tu CISO','CISO propio o virtual','Cómo reportar al directorio']},
+    ransomware:{t:'Ransomware',l:['Las primeras 24 horas','¿Pagar o no pagar?','Respaldos que funcionan','Simulacros para el directorio']},
+    regulacion:{t:'Regulación',l:['Protección de datos personales','ISO 27001 sin vueltas','NIST CSF para dueños','Responsabilidad del directorio']},
+    videos:{t:'Videos',l:['Último episodio','Todos los episodios','Videos cortos']},
+    analisis:{t:'Análisis',l:['Incidentes recientes','Tendencias','Informes']}
+  };
+  const mega=$('#mega'), cols=$('.mega-cols'), links=[...document.querySelectorAll('.secciones a[data-mega]')];
+  const esPC=matchMedia('(min-width:1001px)');
+  let actual=null, tAbrir, tCerrar, sinAbrir=false;
+  const li=(t)=>`<li><a href="#">${t}</a></li>`;
+  function pintar(k){
+    const m=MEGA[k];
+    cols.innerHTML=`
+      <div><h2 class="mono">Explorar ${m.t}</h2><ul class="grandes">${li('Ver todo')}${m.l.map(li).join('')}</ul></div>
+      <div><h2 class="mono">Formatos</h2><ul class="chicos">${['Notas','Videos','Análisis','Guías para directorios'].map(li).join('')}</ul></div>
+      <div><h2 class="mono">Más de E4O</h2><ul class="chicos">${['Sobre mí','Contacto','LinkedIn','YouTube'].map(li).join('')}</ul></div>`;
+  }
+  function abrirMega(k){
+    clearTimeout(tCerrar);
+    if(actual!==k){pintar(k);actual=k}
+    links.forEach(a=>a.setAttribute('aria-expanded',a.dataset.mega===k));
+    b.classList.add('mega-abierto');
+    mega.setAttribute('aria-hidden','false'); mega.inert=false;
+  }
+  function cerrarMega(){
+    clearTimeout(tAbrir);
+    b.classList.remove('mega-abierto');
+    links.forEach(a=>a.setAttribute('aria-expanded','false'));
+    mega.setAttribute('aria-hidden','true'); mega.inert=true;
+  }
+  links.forEach(a=>{
+    a.addEventListener('mouseenter',()=>{
+      if(!esPC.matches)return;
+      clearTimeout(tAbrir); clearTimeout(tCerrar);
+      tAbrir=setTimeout(()=>abrirMega(a.dataset.mega), b.classList.contains('mega-abierto')?0:120);
+    });
+    a.addEventListener('focus',()=>{if(sinAbrir){sinAbrir=false;return} if(esPC.matches)abrirMega(a.dataset.mega)});
+    // En pantallas táctiles grandes, el primer toque abre el panel
+    a.addEventListener('click',e=>{
+      if(!esPC.matches)return;
+      if(a.getAttribute('aria-expanded')!=='true'){e.preventDefault();abrirMega(a.dataset.mega)}
+    });
+  });
+  const cab=$('header');
+  cab.addEventListener('mouseleave',()=>{clearTimeout(tAbrir);tCerrar=setTimeout(cerrarMega,200)});
+  cab.addEventListener('mouseenter',()=>clearTimeout(tCerrar));
+  $('.velo-mega').addEventListener('click',cerrarMega);
+  lupa.addEventListener('mouseenter',()=>{if(esPC.matches){tCerrar=setTimeout(cerrarMega,150)}});
+  $('.logo').addEventListener('mouseenter',()=>{if(esPC.matches){tCerrar=setTimeout(cerrarMega,150)}});
+  cab.addEventListener('focusout',e=>{if(!cab.contains(e.relatedTarget))cerrarMega()});
+  esPC.addEventListener('change',()=>{cerrarMega(); if(esPC.matches&&b.classList.contains('menu-abierto'))menu(false)});
+
   document.addEventListener('keydown',e=>{
     if(e.key!=='Escape')return;
+    if(b.classList.contains('mega-abierto')){const a=links.find(x=>x.dataset.mega===actual);cerrarMega();if(a){sinAbrir=true;a.focus()}return}
     if(b.classList.contains('menu-abierto'))menu(false);
     else if(b.classList.contains('buscando'))busqueda(false);
   });
