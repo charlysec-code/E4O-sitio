@@ -214,6 +214,26 @@
     .ep{aspect-ratio:3/4.6;padding:36px 20px 28px}
     .ep-frase{font-size:17px}
   }
+  /* Secciones a todo el ancho, estilo Linear y Vercel: el fondo va de borde a borde y el contenido queda centrado */
+  .seccion{width:100%;padding:120px 0}
+  .seccion .in{max-width:1240px;margin:0 auto;padding:0 max(24px,var(--safe-r)) 0 max(24px,var(--safe-l))}
+  .seccion.negra{background:var(--negro);color:var(--blanco)}
+  .seccion.negra + footer{border-top:1px solid #333}
+  .seccion .etiqueta{font-size:12px;color:var(--naranja);margin-bottom:16px}
+  .seccion h2{font-size:54px;line-height:1.1;font-weight:800;letter-spacing:-.025em;max-width:18ch;text-wrap:balance}
+  .seccion .raya{background:currentColor;margin:28px 0 48px}
+  .pilares{display:grid;grid-template-columns:repeat(3,1fr)}
+  .pilar{padding:0 32px;border-left:1px solid #333}
+  .pilar:first-child{padding-left:0;border-left:0}
+  .pilar h3{font-size:12px;color:#BDBDBD;margin-bottom:12px}
+  .pilar p{font-family:"Source Serif 4",serif;font-size:18px;line-height:1.6;color:var(--blanco)}
+  @media(max-width:800px){
+    .seccion{padding:80px 0}
+    .seccion h2{font-size:36px;line-height:1.12}
+    .pilares{grid-template-columns:1fr}
+    .pilar{padding:24px 0 0;border-left:0;border-top:1px solid #333;margin-top:24px}
+    .pilar:first-child{padding-top:0;border-top:0;margin-top:0}
+  }
   @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
@@ -347,6 +367,19 @@
   <div class="ep-control">
     <div class="ep-puntos" role="group" aria-label="Elegir episodio"></div>
     <button class="ep-play" aria-label="Pausar"><svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2" y="1" width="3.5" height="12" rx="1" fill="currentColor"/><rect x="8.5" y="1" width="3.5" height="12" rx="1" fill="currentColor"/></svg></button>
+  </div>
+</section>
+
+<section class="seccion negra" aria-labelledby="que-es">
+  <div class="in">
+    <p class="etiqueta mono">Qué es E4O</p>
+    <h2 id="que-es">Experiencia real en ciberseguridad, traducida para quienes deciden.</h2>
+    <div class="raya"></div>
+    <div class="pilares">
+      <div class="pilar"><h3 class="mono">Qué hacemos</h3><p>Videos, análisis y opinión sobre riesgo, estrategia y el rol del CISO.</p></div>
+      <div class="pilar"><h3 class="mono">De dónde viene</h3><p>Más de 17 años entre SOC, forense, auditoría, BISO y estrategia de CISO.</p></div>
+      <div class="pilar"><h3 class="mono">Qué promete</h3><p>Que un dueño entienda su riesgo y pueda decidir, sin tecnicismos.</p></div>
+    </div>
   </div>
 </section>
 
