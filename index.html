@@ -124,8 +124,8 @@
   /* Franja de siglas, estilo Linear y Vercel: ancho completo, movimiento continuo */
   /* Hero estilo Vercel: una sola hoja de color de punta a punta, que incluye la barra superior */
   :root{--hoja:#FAFAFA}
-  .hero{background:var(--hoja);min-height:calc(100svh - 61px);display:flex;flex-direction:column;justify-content:space-between;
-    padding:72px 0 40px;text-align:center}
+  .hero{background:var(--hoja);min-height:calc(100svh - 61px);display:flex;flex-direction:column;justify-content:center;
+    padding:56px 0;text-align:center}
   .hero-in{max-width:880px;margin:0 auto;padding:0 max(24px,var(--safe-r)) 0 max(24px,var(--safe-l));display:flex;flex-direction:column;align-items:center}
   .hero-radar{width:150px;height:150px;margin-bottom:40px}
   .hero h1{font-size:64px;line-height:1.08;font-weight:800;letter-spacing:-.03em;text-wrap:balance}
@@ -137,7 +137,9 @@
   .boton.vacio{background:var(--blanco);border:1px solid var(--linea)}
   .boton.vacio:hover{border-color:var(--negro)}
   /* Tira de siglas al pie del hero, sobre la misma hoja, como los logos de Vercel y Linear */
-  .franja{overflow:hidden;margin-top:56px;padding:12px 0;
+  /* La tira abre la segunda pantalla: banda propia, sobre la misma hoja gris */
+  .franja-seccion{background:var(--hoja);border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);padding:44px 0 36px;text-align:center}
+  .franja{overflow:hidden;padding:12px 0;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
     mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
   .franja-pista{display:flex;width:max-content;animation:franja 45s linear infinite}
@@ -147,13 +149,13 @@
   .franja-leyenda{font-size:12px;color:var(--gris);margin-top:20px;padding:0 24px}
   @keyframes franja{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media(max-width:800px){
-    .hero{padding:48px 0 28px}
+    .hero{padding:40px 0}
     .hero-radar{width:120px;height:120px;margin-bottom:32px}
     .hero h1{font-size:40px;line-height:1.1}
     .hero-bajada{font-size:12px}
     .hero-botones{flex-direction:column;width:100%}
     .boton{width:100%}
-    .franja{margin-top:44px}
+    .franja-seccion{padding:32px 0 28px}
     .franja li{font-size:22px;padding:0 28px}
     .franja-pista{animation-duration:30s}
   }
@@ -319,17 +321,18 @@
       <a class="boton vacio" href="#que-es">Qué es E4O</a>
     </div>
   </div>
-  <div>
-    <div class="franja" role="region" aria-label="Marcos y temas que tratamos">
-      <div class="franja-pista">
-        <ul><li>KPI</li><li>OKR</li><li>ISO 27001</li><li>ISO 42001</li><li>IA</li><li>NIST</li><li>CNV</li></ul>
-        <ul aria-hidden="true"><li>KPI</li><li>OKR</li><li>ISO 27001</li><li>ISO 42001</li><li>IA</li><li>NIST</li><li>CNV</li></ul>
-        <ul aria-hidden="true"><li>KPI</li><li>OKR</li><li>ISO 27001</li><li>ISO 42001</li><li>IA</li><li>NIST</li><li>CNV</li></ul>
-        <ul aria-hidden="true"><li>KPI</li><li>OKR</li><li>ISO 27001</li><li>ISO 42001</li><li>IA</li><li>NIST</li><li>CNV</li></ul>
+</section>
+
+<section class="franja-seccion" aria-label="Marcos y temas que tratamos">
+  <div class="franja">
+    <div class="franja-pista">
+      <ul><li>KPI</li><li>OKR</li><li>ISO 27001</li><li>ISO 42001</li><li>IA</li><li>NIST</li><li>CNV</li></ul>
+      <ul aria-hidden="true"><li>KPI</li><li>OKR</li><li>ISO 27001</li><li>ISO 42001</li><li>IA</li><li>NIST</li><li>CNV</li></ul>
+      <ul aria-hidden="true"><li>KPI</li><li>OKR</li><li>ISO 27001</li><li>ISO 42001</li><li>IA</li><li>NIST</li><li>CNV</li></ul>
+      <ul aria-hidden="true"><li>KPI</li><li>OKR</li><li>ISO 27001</li><li>ISO 42001</li><li>IA</li><li>NIST</li><li>CNV</li></ul>
       </div>
     </div>
     <p class="franja-leyenda mono">Los marcos que traducimos para el directorio</p>
-  </div>
 </section>
 
 <main id="contenido">
