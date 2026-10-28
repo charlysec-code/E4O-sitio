@@ -125,21 +125,20 @@
   /* Megamenú de computadora, estilo Apple */
   .secciones a{padding:8px 0;transition:color .2s}
   .secciones a[aria-expanded="true"]{color:var(--azul)}
-  .mega{position:absolute;left:0;right:0;top:100%;background:var(--blanco);border-bottom:1px solid var(--linea);
-    display:grid;grid-template-rows:0fr;transition:grid-template-rows .32s cubic-bezier(.4,0,.2,1);visibility:hidden}
-  .mega>.mega-in{overflow:hidden}
-  body.mega-abierto .mega{grid-template-rows:1fr;visibility:visible}
-  .mega-cols{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:minmax(260px,2fr) 1fr 1fr 1.5fr;gap:48px;
-    padding:36px max(24px,var(--safe-r)) 56px max(24px,var(--safe-l));opacity:0;transform:translateY(-6px);transition:opacity .25s,transform .25s}
-  body.mega-abierto .mega-cols{opacity:1;transform:none;transition-delay:.08s}
+  .mega{position:absolute;left:0;right:0;top:100%;background:var(--blanco);visibility:hidden;transition:visibility 0s .32s}
+  .mega>.mega-in{overflow:hidden;height:0;transition:height .32s cubic-bezier(.4,0,.2,1)}
+  body.mega-abierto .mega{visibility:visible;transition:visibility 0s;border-bottom:1px solid var(--linea)}
+  .mega-cols{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(3,max-content);gap:88px;
+    padding:36px max(24px,var(--safe-r)) 56px max(24px,var(--safe-l));opacity:0;transition:opacity .2s}
+  body.mega-abierto .mega-cols{opacity:1}
   .mega h2{font-size:12px;color:var(--gris);font-weight:500;margin-bottom:16px}
   .mega ul{list-style:none}
-  .mega .grandes a{display:inline-block;font-size:26px;line-height:1.25;font-weight:700;letter-spacing:-.01em;padding:4px 0}
+  .mega .grandes a{display:inline-block;font-size:24px;line-height:1.25;font-weight:700;letter-spacing:-.01em;padding:4px 0;white-space:nowrap}
   .mega .chicos a{display:inline-block;font-size:14px;line-height:1.4;font-weight:700;padding:6px 0}
   .mega a:hover{color:var(--azul)}
   /* Entrada en cascada: cada elemento sube y aparece, de izquierda a derecha y de arriba abajo */
-  @keyframes entrar{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-  body.mega-abierto .mega .cascada{animation:entrar .42s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*28ms + 60ms)}
+  @keyframes entrar{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+  body.mega-abierto .mega .cascada{animation:entrar .24s ease-out both;animation-delay:calc(var(--i)*12ms + 40ms)}
   .velo-mega{position:fixed;inset:0;z-index:19;background:rgba(0,0,0,.12);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
     opacity:0;pointer-events:none;transition:opacity .3s}
   body.mega-abierto .velo-mega{opacity:1;pointer-events:auto}
@@ -336,11 +335,13 @@
     if(actual!==k||!b.classList.contains('mega-abierto')){pintar(k);actual=k}
     links.forEach(a=>a.setAttribute('aria-expanded',a.dataset.mega===k));
     b.classList.add('mega-abierto');
+    mega.firstElementChild.style.height=cols.offsetHeight+'px';
     mega.setAttribute('aria-hidden','false'); mega.inert=false;
   }
   function cerrarMega(){
     clearTimeout(tAbrir);
     b.classList.remove('mega-abierto');
+    mega.firstElementChild.style.height='0px';
     links.forEach(a=>a.setAttribute('aria-expanded','false'));
     mega.setAttribute('aria-hidden','true'); mega.inert=true;
   }
