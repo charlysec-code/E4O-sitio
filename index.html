@@ -137,6 +137,9 @@
   .mega .grandes a{display:inline-block;font-size:26px;line-height:1.25;font-weight:700;letter-spacing:-.01em;padding:4px 0}
   .mega .chicos a{display:inline-block;font-size:14px;line-height:1.4;font-weight:700;padding:6px 0}
   .mega a:hover{color:var(--azul)}
+  /* Entrada en cascada: cada elemento sube y aparece, de izquierda a derecha y de arriba abajo */
+  @keyframes entrar{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  body.mega-abierto .mega .cascada{animation:entrar .42s cubic-bezier(.2,.7,.2,1) both;animation-delay:calc(var(--i)*28ms + 60ms)}
   .velo-mega{position:fixed;inset:0;z-index:19;background:rgba(0,0,0,.12);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
     opacity:0;pointer-events:none;transition:opacity .3s}
   body.mega-abierto .velo-mega{opacity:1;pointer-events:auto}
@@ -161,7 +164,7 @@
     .col.centro{border:0;order:-1}
     .nota h1{font-size:36px;line-height:1.12}
   }
-  @media(prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
@@ -323,10 +326,14 @@
       <div><h2 class="mono">Explorar ${m.t}</h2><ul class="grandes">${li('Ver todo')}${m.l.map(li).join('')}</ul></div>
       <div><h2 class="mono">Formatos</h2><ul class="chicos">${['Notas','Videos','Análisis','Guías para directorios'].map(li).join('')}</ul></div>
       <div><h2 class="mono">Más de E4O</h2><ul class="chicos">${['Sobre mí','Contacto','LinkedIn','YouTube'].map(li).join('')}</ul></div>`;
+    // Cada columna arranca un poco después que la anterior
+    [...cols.children].forEach((col,c)=>{
+      col.querySelectorAll('h2,li').forEach((el,i)=>{el.classList.add('cascada');el.style.setProperty('--i',c*3+i)});
+    });
   }
   function abrirMega(k){
     clearTimeout(tCerrar);
-    if(actual!==k){pintar(k);actual=k}
+    if(actual!==k||!b.classList.contains('mega-abierto')){pintar(k);actual=k}
     links.forEach(a=>a.setAttribute('aria-expanded',a.dataset.mega===k));
     b.classList.add('mega-abierto');
     mega.setAttribute('aria-hidden','false'); mega.inert=false;

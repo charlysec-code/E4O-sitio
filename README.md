@@ -25,5 +25,6 @@ Las versiones aprobadas se guardan como ramas que empiezan con `version-`:
 | Versión | Qué incluye |
 | --- | --- |
 | `version-v1.0` | Manual de marca v2.0, header estilo Apple, buscador y mejoras de accesibilidad |
+| `version-v1.1` | Lo anterior más el menú desplegable estilo Apple en computadora |
 
 Para volver a una de ellas, pedíselo a Claude: "volvé a la v1.0".
