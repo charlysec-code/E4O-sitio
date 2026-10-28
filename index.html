@@ -205,6 +205,8 @@
     .col{padding:0}
     .col.centro{border:0;order:-1}
     .nota h1,.nota h2.principal{font-size:36px;line-height:1.12}
+    /* Imágenes de las notas de borde a borde, sin margen blanco a los costados */
+    .img{margin-left:calc(-1 * max(24px,var(--safe-l)));margin-right:calc(-1 * max(24px,var(--safe-r)));border-radius:0}
   }
   /* Carrusel de episodios, estilo Apple: tarjetas verticales de borde a borde, en bucle */
   .episodios{padding:8px 0 40px;background:var(--blanco);overflow:hidden}
