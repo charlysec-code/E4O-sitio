@@ -57,8 +57,9 @@
   .icono{background:none;border:0;cursor:pointer;flex-shrink:0;width:44px;height:44px;
     display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;transition:background .2s}
   .icono:hover{background:#F2F2F2}
-  .menu-btn{gap:7px}
-  .menu-btn span{display:block;width:20px;height:2px;background:var(--negro)}
+  /* Hamburguesa de dos líneas finas, estilo Apple */
+  .menu-btn{gap:6px}
+  .menu-btn span{display:block;width:18px;height:1.5px;border-radius:1px;background:var(--negro)}
   .secciones{display:flex;gap:24px;font-size:12px;white-space:nowrap;overflow:hidden}
   .secciones a:hover{color:var(--azul)}
   .buscar{margin-left:auto}
@@ -146,14 +147,14 @@
 
 <header>
   <div class="barra">
-    <button class="icono menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span><span></span></button>
+    <button class="icono menu-btn" aria-label="Abrir menú" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
     <a class="logo" href="#" aria-label="E4O, inicio"><svg role="img" aria-label="E4O"><use href="#logo-e4o"/></svg></a>
     <nav class="secciones mono" aria-label="Secciones">
       <a href="#">Riesgo</a><a href="#">Estrategia</a><a href="#">El rol del CISO</a>
       <a href="#">Ransomware</a><a href="#">Regulación</a><a href="#">Videos</a><a href="#">Análisis</a>
     </nav>
     <button class="icono buscar" aria-label="Buscar" aria-expanded="false" aria-controls="busqueda">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
     </button>
   </div>
   <div class="busqueda" id="busqueda">
