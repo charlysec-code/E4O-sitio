@@ -138,15 +138,15 @@
   .boton.vacio:hover{border-color:var(--negro)}
   /* Tira de siglas al pie del hero, sobre la misma hoja, como los logos de Vercel y Linear */
   /* La tira abre la segunda pantalla: banda propia, sobre la misma hoja gris */
-  .franja-seccion{background:var(--hoja);border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);padding:44px 0 36px;text-align:center}
-  .franja{overflow:hidden;padding:12px 0;
+  .franja-seccion{background:var(--hoja);border-top:1px solid var(--linea);border-bottom:1px solid var(--linea);padding:18px 0 16px;text-align:center}
+  .franja{overflow:hidden;padding:2px 0;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);
     mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
   .franja-pista{display:flex;width:max-content;animation:franja 45s linear infinite}
   .franja:hover .franja-pista{animation-play-state:paused}
   .franja ul{display:flex;align-items:center;list-style:none}
-  .franja li{font-weight:800;font-size:30px;letter-spacing:-.02em;color:var(--negro);white-space:nowrap;padding:0 56px}
-  .franja-leyenda{font-size:12px;color:var(--gris);margin-top:20px;padding:0 24px}
+  .franja li{font-weight:800;font-size:17px;letter-spacing:-.01em;color:var(--negro);white-space:nowrap;padding:0 36px}
+  .franja-leyenda{font-size:12px;color:var(--gris);margin-top:8px;padding:0 24px}
   @keyframes franja{from{transform:translateX(0)}to{transform:translateX(-50%)}}
   @media(max-width:800px){
     .hero{padding:40px 0}
@@ -155,8 +155,8 @@
     .hero-bajada{font-size:12px}
     .hero-botones{flex-direction:column;width:100%}
     .boton{width:100%}
-    .franja-seccion{padding:32px 0 28px}
-    .franja li{font-size:22px;padding:0 28px}
+    .franja-seccion{padding:14px 0 12px}
+    .franja li{font-size:15px;padding:0 22px}
     .franja-pista{animation-duration:30s}
   }
 
